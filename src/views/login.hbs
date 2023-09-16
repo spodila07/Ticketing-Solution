@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>  
+    <link rel="stylesheet" href="/css/plugins.min.css">
+    <link rel="stylesheet" href="/css/app.min.css">
+    <style type="text/css">
+        html, body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+        }
+        .login-box {
+            width: 400px;
+            background: #fff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 20px;
+            font-family: "Roboto", Arial, sans-serif;
+        }
+        .login-box img {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Increase size of input fields */
+        input {
+            margin-bottom: 15px; /* Decrease spacing */
+            padding: 10px; /* Increase padding for height */
+            font-size: 18px; /* Increase font size */
+            width: 100%; /* Make input fields full-width */
+        }
+
+        input:focus {
+            outline: 2px solid transparent; /* No visible outline */
+            color: orange; /* Text color */
+        }
+
+        input::placeholder {
+            color: grey;
+        }
+
+      <!DOCTYPE html>
+<html>
+<head>  
+  <link rel="stylesheet" href="/css/plugins.min.css">
+  <link rel="stylesheet" href="/css/app.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style type="text/css">
+    /* Existing Styles */
+    html, body {
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      background: url('/img/LoginPageBack.jpeg') no-repeat center center fixed; /* Replace 'LoginPageBack.jpg' with the actual path to your background image */
+      background-size: cover;
+    }
+
+    
+    .login-box {
+      width: 400px;
+      background: #fff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 20px;
+      font-family: "Roboto", Arial, sans-serif;
+    }
+
+    /* New/Updated Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .btn {
+      transition: background-color 0.3s ease;
+      border: 1px solid #555;
+    }
+
+    .btn:hover {
+      background-color: #555;
+      color: white;
+    }
+
+    .uk-margin-medium-bottom {
+      position: relative;
+    }
+
+    .uk-margin-medium-bottom i {
+      position: absolute;
+      left: 10px;
+      top: 15px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/vendor.js"></script>
+  <script src="/js/truRequire.js"></script>
+</head>
+<body>
+
+<div class="alert-message {{#if flash}} {{else}} hide {{/if}} {{#if flash.success}} green {{/if}}">
+    <p>{{#if flash.message}} {{{flash.message}}} {{else}} {{{flash}}}{{/if}}</p>
+</div>
+
+<div class="login-box">
+    <img src="/img/IC3Logo.jpeg" alt="Logo" />
+    <form id="loginForm" method="post" action="/login" class="uk-form-stacked uk-clearfix">
+        <div class="uk-margin-medium-bottom">
+            <input id="login-username" name="login-username" class="md-input" type="text" placeholder="GatorLink Username" />
+        </div>
+        <div class="uk-margin-medium-bottom">
+            <input id="login-password" name="login-password" class="md-input md-waves-light" type="password" placeholder="Password" />
+        </div>
+        <button class="btn md-btn md-btn-flat md-btn-wave md-btn-flat-accent" type="submit">Login</button>
+    </form>
+    {{#if mailerEnabled}}
+        <a id="forgotPass" href="#">Forgot your password?</a>
+    {{/if}}
+
+    {{#if mailerEnabled}}
+        <div style="display: none;">
+            <form id="forgotPassForm" method="post" action="/">
+                <label for="forgotPass-email">Email</label>
+                <input id="forgotPass-email" name="forgotPass-email" type="text" />
+                <button type="submit">Forgot Password</button>
+            </form>
+            <a id="backToLogin" href="#">Back to Login</a>
+        </div>
+    {{/if}}
+
+    <img src="/img/UFHealth.png" alt="UFHealth" style="margin-top: 50px; width: 50%; max-width: 200px;" />
+
+
+</div>
+
+<div class="bottom">
+    {{bottom}}
+</div>
+
+<script type="text/javascript">
+    window.truRequire(['jquery', 'helpers'], function(loadedModules) {
+        var $ = loadedModules[0];
+        var helpers = loadedModules[1];
+        helpers.UI.inputs();
+        helpers.UI.waves();
+
+        $('#loginForm').submit(function(e) {
+            var u = $('#login-username').val();
+            var p = $('#login-password').val();
+            if (u.length < 4 || p.length < 4)
+                e.preventDefault();
+        });
+
+        $('#forgotPass').click(function(e) {
+            e.preventDefault();
+            $('.loginForm').fadeOut(100, function() {
+                $('.forgotPassForm').fadeIn();
+            });
+
+        });
+
+        $('#backToLogin').click(function(e) {
+            e.preventDefault();
+            $('.forgotPassForm').fadeOut(100, function() {
+                $('.loginForm').fadeIn();
+            });
+        });
+
+        $('#forgotPassForm').submit(function(e) {
+            e.preventDefault();
+            var self = $(this);
+            var alertMessage = $('.alert-message');
+            $.ajax({
+                type: 'POST',
+                url: '/forgotpass',
+                data: self.serialize(),
+                async: true,
+                success: function(data) {
+                    alertMessage.removeClass('hide')
+                            .addClass('green')
+                            .find('p')
+                            .html('Password Reset Email Sent!');
+                    $('#forgotPass-email').val('');
+                    $('.forgotPassForm').fadeOut(100, function() {
+                        $('.loginForm').fadeIn();
+                    });
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alertMessage.removeClass('hide')
+                            .find('p')
+                            .html(xhr.responseText);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
