@@ -17,12 +17,14 @@ const mongoose = require('mongoose')
 const winston = require('../logger')
 
 const db = {}
+
 const mongoConnectionUri = {
-  server: 'localhost',
-  port: '27017',
-  username: 'trudesk',
-  password: 'trudesk',
-  database: 'trudesk',
+  server: process.env.TD_MONGODB_SERVER || nconf.get('mongo:host'),
+  port: process.env.TD_MONGODB_PORT || nconf.get('mongo:port') || '27017',
+  username: process.env.TD_MONGODB_USERNAME || nconf.get('mongo:username'),
+  password: process.env.TD_MONGODB_PASSWORD || nconf.get('mongo:password'),
+  database: process.env.TD_MONGODB_DATABASE || nconf.get('mongo:database'),
+  shard: process.env.TD_MONGODB_SHARD || nconf.get('mongo:shard')
 }
 
 let CONNECTION_URI = ''

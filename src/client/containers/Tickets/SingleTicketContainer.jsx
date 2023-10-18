@@ -200,6 +200,7 @@ class SingleTicketContainer extends React.Component {
   }
 
   onUpdateTicketDueDate (data) {
+    console.log("Inside SingleTicketContainer:",data);
     if (this.ticket._id === data._id) this.ticket.dueDate = data.dueDate
   }
 

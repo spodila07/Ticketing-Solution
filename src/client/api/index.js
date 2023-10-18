@@ -246,6 +246,10 @@ api.accounts.enableAccount = ({ username }) => {
   })
 }
 
+api.accounts.signup = ({})=>{
+  return axios.get(`/api/v2/accounts/signup`).then(res=>{return res.data});
+}
+
 api.accounts.saveProfile = payload => {
   return axios.put(`/api/v2/accounts/profile`, payload).then(res => {
     return res.data
@@ -335,6 +339,8 @@ api.messages.getConversations = () => {
     return res.data
   })
 }
+
+
 api.messages.getSingleConversation = ({ _id }) => {
   return axios.get(`/api/v2/messages/conversations/${_id}`).then(res => {
     return res.data

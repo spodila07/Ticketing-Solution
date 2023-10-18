@@ -43,6 +43,9 @@ class CreateTicketModal extends React.Component {
   @observable groupAccounts = []
   @observable selectedPriority = ''
   @observable selectedAgentTeam = ''
+  @observable expectedDueDate = '';
+
+
   issueText = ''
 
   constructor (props) {
@@ -107,6 +110,12 @@ class CreateTicketModal extends React.Component {
     this.selectedAgentTeam = e.target.value
   }
 
+  onDueDateChange(e) {
+    // const utcDate = new Date(`${e.target.value}T12:00:00Z`);
+    this.expectedDueDate = e.target.value;
+  }
+  
+
   onFormSubmit (e) {
     e.preventDefault()
     const $form = $(e.target)
@@ -151,6 +160,8 @@ class CreateTicketModal extends React.Component {
     const AgentTeam = this.selectedAgentTeam;
     data['AgentTeam'] = AgentTeam;
 
+    data.dueDate = e.target.dueDate.value
+    console.log("During creating ticket:", data.dueDate)
     this.props.createTicket(data)
   }
 
@@ -309,6 +320,21 @@ class CreateTicketModal extends React.Component {
               })}
             </div>
           </div>
+
+          <div className='uk-margin-medium-bottom'>
+                    <span>Expected Due Date</span>
+                    <div>
+                    <input
+                        name={'dueDate'}
+                        type='date'
+                        className={'md-input'}
+                        placeholder="mm/dd/yyyy"
+                        value={this.expectedDueDate}
+                        onChange={e => this.onDueDateChange(e)}
+                    />
+                    </div>
+          </div>
+
           <div className='uk-margin-medium-bottom'>
             <span>Description</span>
             <div className='error-border-wrap uk-clearfix'>

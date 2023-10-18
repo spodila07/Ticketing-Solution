@@ -57,7 +57,7 @@ mainController.index = function (req, res) {
       content.pageLogo = '/assets/' + settings.customPageLogoFilename.value
     }
 
-    // content.bottom = 'Trudesk v' + pkg.version
+    content.bottom = 'Trudesk v' + pkg.version
 
     res.render('login', content)
   })
@@ -83,7 +83,7 @@ mainController.about = function (req, res) {
     content.data.user = req.user
     content.data.common = req.viewdata
 
-    // content.data.version = pkg.version
+    content.data.version = pkg.version
     if (privacyPolicy === null || _.isUndefined(privacyPolicy.value)) {
       content.data.privacyPolicy = 'No Privacy Policy has been set.'
     } else {
@@ -600,7 +600,7 @@ mainController.l2authget = function (req, res) {
     if (!_.isNull(settings) && !_.isNull(settings.mailerEnabled)) {
       content.mailerEnabled = settings.mailerEnabled.value
     }
-    content.pageLogo = '/img/IC3Logo.jpeg'
+    content.pageLogo = '/img/defaultLogoDark.png'
     if (settings.hasCustomPageLogo.value && settings.customPageLogoFilename.value.length > 0) {
       content.pageLogo = '/assets/' + settings.customPageLogoFilename.value
     }

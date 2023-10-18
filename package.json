@@ -8,7 +8,7 @@
   },
   "bin": "./app.js",
   "scripts": {
-    "start": "node ./app",
+    "start": "INTERNAL_PORT=8118 node ./app",
     "build": "grunt build",
     "test": "mocha --recursive",
     "lint": "standard | snazzy",

@@ -31,6 +31,23 @@
             flex-direction: column;
             align-items: center;
         }
+
+      
+        form .button-group {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn-login {
+            background-color: orange;
+            color: white;
+        }
+
+        .btn-submit {
+            background-color: blue;
+            color: white;
+        }
         
         /* Increase size of input fields */
         input {
@@ -49,69 +66,42 @@
             color: grey;
         }
 
-      <!DOCTYPE html>
-<html>
-<head>  
-  <link rel="stylesheet" href="/css/plugins.min.css">
-  <link rel="stylesheet" href="/css/app.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style type="text/css">
-    /* Existing Styles */
-    html, body {
-      overflow-x: hidden;
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
-      background: url('/img/LoginPageBack.jpeg') no-repeat center center fixed; /* Replace 'LoginPageBack.jpg' with the actual path to your background image */
-      background-size: cover;
-    }
+        .btn:hover {
+        background-color: #555;
+        color: white;
+        }
 
-    
-    .login-box {
-      width: 400px;
-      background: #fff;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      padding: 20px;
-      font-family: "Roboto", Arial, sans-serif;
-    }
+        .uk-margin-medium-bottom {
+        position: relative;
+        }
 
-    /* New/Updated Styles */
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
+        .uk-margin-medium-bottom i {
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        }
 
-    .btn {
-      transition: background-color 0.3s ease;
-      border: 1px solid #555;
-    }
+        .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        }
 
-    .btn:hover {
-      background-color: #555;
-      color: white;
-    }
+        .btn-signup {
+            background-color: #28a745;  /* Green color for signup */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px;  /* Padding to give it space */
+            font-weight: bold;   /* Bold font */
+            cursor: pointer;     /* Hand cursor on hover */
+            margin-top: 10px;    /* Space at the top to separate from other elements */
+        }
 
-    .uk-margin-medium-bottom {
-      position: relative;
-    }
-
-    .uk-margin-medium-bottom i {
-      position: absolute;
-      left: 10px;
-      top: 15px;
-    }
-
-    .error-message {
-      color: red;
-      font-size: 12px;
-      margin-top: -10px;
-      margin-bottom: 10px;
-    }
-
+        .btn-signup:hover {
+            background-color: #218838; /* Slightly darker green on hover */
+        }
   </style>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/vendor.js"></script>
@@ -132,8 +122,17 @@
         <div class="uk-margin-medium-bottom">
             <input id="login-password" name="login-password" class="md-input md-waves-light" type="password" placeholder="Password" />
         </div>
-        <button class="btn md-btn md-btn-flat md-btn-wave md-btn-flat-accent" type="submit">Login</button>
+        <div class="button-group">
+            <button class="btn md-btn md-btn-flat md-btn-wave md-btn-flat-accent btn-login" type="submit">Login</button>
+            <button 
+                class="btn md-btn md-btn-flat md-btn-wave md-btn-flat-accent btn-signup" 
+                onclick="window.location.href='/signup';"
+                style="visibility: visible; opacity: 1;"
+            >Signup</button>
+        </div>
     </form>
+
+        
     {{#if mailerEnabled}}
         <a id="forgotPass" href="#">Forgot your password?</a>
     {{/if}}

@@ -148,7 +148,7 @@ class TopbarContainer extends React.Component {
           <div className='uk-width-1-1'>
             <div className='top-bar' data-topbar>
               <div className='title-area uk-float-left'>
-                <div className='logo'>
+                {/* <div className='logo'>
                 <img
                     src="/img/ICImage.png"
                     alt='Logo'
@@ -161,9 +161,7 @@ class TopbarContainer extends React.Component {
                       boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)', // Add a subtle shadow effect
                       marginLeft:'20px'
                     }}
-          />
-
-                </div>
+          /> */}
               </div>
               <section className='top-bar-section uk-clearfix'>
                 <div className='top-menu uk-float-right'>

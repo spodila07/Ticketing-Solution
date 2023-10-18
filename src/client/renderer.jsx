@@ -30,6 +30,7 @@ import ProfileContainer from 'containers/Profile'
 import MessagesContainer from 'containers/Messages'
 import ReportsContainer from 'containers/Reports'
 import AboutContainer from 'containers/About'
+// import SignUp from './containers/SignUp'
 
 export default function (store) {
   if (document.getElementById('dashboard-container')) {
@@ -41,6 +42,15 @@ export default function (store) {
 
     ReactDOM.render(DashboardContainerWithProvider, document.getElementById('dashboard-container'))
   }
+
+  // if (document.getElementById('signup-container')){
+  //   const SignupContainerWithProvider = (
+  //     <Provider store={store}>
+  //       <SignUp/>
+  //     </Provider>
+  //   )
+  //   ReactDOM.render(SignupContainerWithProvider, document.getElementById('signup-container'))
+  // }
 
   if (document.getElementById('tickets-container')) {
     const view = document.getElementById('tickets-container').getAttribute('data-view')

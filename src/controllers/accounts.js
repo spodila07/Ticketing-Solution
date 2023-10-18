@@ -38,10 +38,14 @@ function handleError (res, err) {
 accountsController.signup = function (req, res) {
   const marked = require('marked')
   const settings = require('../models/setting')
+  console.log("reached signup code");
   settings.getSettingByName('allowUserRegistration:enable', function (err, setting) {
     if (err) return handleError(res, err)
+    console.log("test1");
+    console.log(settings.value);
     if (setting && setting.value === true) {
       settings.getSettingByName('legal:privacypolicy', function (err, privacyPolicy) {
+        console.log("test3")
         if (err) return handleError(res, err)
 
         const content = {}
@@ -57,8 +61,6 @@ accountsController.signup = function (req, res) {
 
         return res.render('pub_signup', content)
       })
-    } else {
-      return res.redirect('/')
     }
   })
 }
